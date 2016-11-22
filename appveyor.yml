@@ -12,7 +12,7 @@ build:
 init:
   - ps: $env:GIT_HASH = $env:APPVEYOR_REPO_COMMIT.Substring(0, 7)
 after_build:
-  - 7z a SkypeAdsRemover.zip %APPVEYOR_BUILD_FOLDER%\SkypeAdsRemover\bin\Release\SkypeAdRemover.exe %APPVEYOR_BUILD_FOLDER%\SkypeAdsRemover\bin\Release\install.bat
+  - 7z a SkypeAdsRemover.zip %APPVEYOR_BUILD_FOLDER%\bin\Release\SkypeAdRemover.exe %APPVEYOR_BUILD_FOLDER%\bin\Release\install.bat
 
 assembly_info:
   patch: true

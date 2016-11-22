@@ -1,0 +1,30 @@
+version: 0.1.{build}
+
+branches:
+  only:
+    - master
+
+os: Visual Studio 2015
+platform: Any CPU
+configuration: Release
+build:
+  project: SkypeAdsRemover.sln
+init:
+  - ps: $env:GIT_HASH = $env:APPVEYOR_REPO_COMMIT.Substring(0, 7)
+after_build:
+  - 7z a SkypeAdsRemover.zip %APPVEYOR_BUILD_FOLDER%\SkypeAdsRemover\bin\Release\SkypeAdRemover.exe %APPVEYOR_BUILD_FOLDER%\SkypeAdsRemover\bin\Release\install.bat
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}-$(GIT_HASH)-$(APPVEYOR_REPO_BRANCH)'
+
+shallow_clone: true
+
+test: off
+
+artifacts:
+  - path: 'SkypeAdsRemover.zip'
+    name: release
